@@ -203,7 +203,12 @@ public class Task1 {
             System.out.println("Enter a username of only alphabetic characters, of length 10 or less\n");
             username = text_scanner.nextLine();
             if (username.length() > 10) System.out.println("Username must be 10 or less characters, [a-z A-Z]\n");
-            else if (!username.matches("[a-zA-Z]+")) System.out.println("Username must be 10 or less characters, [a-z A-Z]\n");
+            else if (!username.matches("[a-zA-Z]+")) System.out.println("Username must be 10 or less characters, [a-z A-Z] and cannot be empty\n");
+            else if (username.length() == 0) {
+                if (max_pass == 0) {
+                    System.out.println("username must contain something, try again");
+                }
+            }
             else valid_input = true;
         }
         return  username;
@@ -214,7 +219,7 @@ public class Task1 {
         System.out.println("Enter a password between " + min + " and " + max + " characters long\n");
         pass = text_scanner.nextLine();
         if (pass.length() > max || pass.length() < min){
-            System.out.println("Password too short or too long try again\n");
+            System.out.println("Password too short or too long try again. Password must be >= 3 and <= 8> \n");
             pass = getPassword(min, max);
         }
         else if (!pass.matches("[0-9]+")){

@@ -1,5 +1,3 @@
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.math.BigInteger;
 import java.util.Random;
 import java.util.Scanner;
@@ -17,11 +15,11 @@ public class Task2 {
 
     //program to make random passwords
 
-    static int max_user_len = 10;
+    static int max_users;
 
     static int max_pass_len = -1, min_pass_len = -1;
 
-    public static void main(String args[]) throws IOException, NoSuchAlgorithmException {
+    public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
 
         //open files
         plain_out = new FileWriter("plaintext.txt");
@@ -34,6 +32,8 @@ public class Task2 {
         byte[] salt_pass_bytes, hashed_password_bytes;
         char salt;
 
+        getNoUsers();
+
         //get min pass len
         min_pass_len = get_min_pass();
         //get max pass len
@@ -41,7 +41,7 @@ public class Task2 {
 
 
         //generate 100 usernames and passwords
-        for (int i = 0; i < 100; i++){
+        for (int i = 0; i < max_users; i++){
             //generate username of max size (default 10, can be changed in the code)
             username = genUsername();
 
@@ -105,6 +105,10 @@ public class Task2 {
             System.out.println("Number given was not integer, try again\n");
             max_pass = get_max_pass();
         }
+        if (max_pass == 0) {
+            System.out.println("0 is not a valid response, try again");
+            max_pass = get_max_pass();
+        }
         return max_pass;
     }
 
@@ -154,7 +158,7 @@ public class Task2 {
     }
 
     public static String genPassword(){
-        StringBuilder pass = new StringBuilder("");
+        StringBuilder pass = new StringBuilder();
         String nums = "0123456789";
         int passLen = ThreadLocalRandom.current().nextInt(min_pass_len, max_pass_len + 1);
         for (int i = 0; i < passLen; i++){
@@ -162,5 +166,19 @@ public class Task2 {
             pass.append(nums.charAt(alpha_index));
         }
         return pass.toString();
+    }
+
+    public static void getNoUsers(){
+        String temp;
+        System.out.println("How many accounts would you like to generate?\n");
+        temp = text_scanner.nextLine();
+        while (true){
+            if (temp.matches("[0-9]+")){
+                max_users = Integer.parseInt(temp);
+                if (max_users == 0) System.out.println("0 is not a valid response, try again");
+                else break;
+            }
+            else System.out.println("Please enter valid input, only numbers are allowed");
+        }
     }
 }

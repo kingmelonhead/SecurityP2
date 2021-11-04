@@ -32,6 +32,7 @@ public class Task3 {
         max_pass = get_max_pass();
 
         getNumAccounts();
+
         op = getOpt();
 
         if (op == 1){
@@ -47,8 +48,9 @@ public class Task3 {
     private static void crack_hash(int max) throws IOException {
         BufferedReader reader;
         FileReader in_file = null;
-        int random_line = ThreadLocalRandom.current().nextInt(0, no_accounts);
-        String line = "";
+        int random_line = ThreadLocalRandom.current().nextInt(1, no_accounts + 1);
+        System.out.println("random line no: " + random_line);
+        String temp, line = null;
         line_no = 1;
 
         try {
@@ -60,16 +62,16 @@ public class Task3 {
         assert in_file != null;
         reader = new BufferedReader(in_file);
 
-        while ((line = reader.readLine()) != null){
-            //System.out.println(line);
+        while ((temp = reader.readLine()) != null){
             if (line_no == random_line){
+                line = temp;
                 break;
             }
             line_no++;
         }
-        System.out.println("Line being cracked: " + line + "\nLine number: " + line_no);
+
         if (line == null){
-            System.out.println("Error: line is null, exiting early...");
+            System.out.println("Error: the number of accounts input earlier exceeds number of accounts in file, exiting early...");
             System.exit(0);
         }
 
@@ -95,20 +97,21 @@ public class Task3 {
     private static void crack_salt(int max) throws IOException, NoSuchAlgorithmException {
         BufferedReader reader;
         FileReader in_file = new FileReader("salted.txt");
-        int random_line = ThreadLocalRandom.current().nextInt(0, no_accounts);
-        String line;
-        int line_no = 0;
+        int random_line = ThreadLocalRandom.current().nextInt(1, no_accounts + 1);
+        String temp, line = null;
+        int line_no = 1;
         reader = new BufferedReader(in_file);
-        while ((line = reader.readLine()) != null){
+
+        while ((temp = reader.readLine()) != null){
             if (line_no == random_line){
+                line = temp;
                 break;
             }
-            else {
-                line_no++;
-            }
+            line_no++;
         }
+
         if (line == null){
-            System.out.println("Error line is null, exiting early...");
+            System.out.println("Error: the number of accounts input earlier exceeds number of accounts in file, exiting early...");
             System.exit(0);
         }
 
@@ -254,7 +257,8 @@ public class Task3 {
         while (true){
             if (temp.matches("[0-9]+")){
                 no_accounts = Integer.parseInt(temp);
-                break;
+                if (no_accounts == 0) System.out.println("0 is not a valid response, try again");
+                else break;
             }
             else System.out.println("Please enter valid input, only numbers are allowed");
         }
