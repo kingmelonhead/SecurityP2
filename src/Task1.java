@@ -3,7 +3,7 @@ import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.Random;
-import java.util.Scanner;  // Import the Scanner class
+import java.util.Scanner;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -59,6 +59,7 @@ public class Task1 {
                 create();
             }
             catch (IOException | NoSuchAlgorithmException e){
+                e.printStackTrace();
                 System.out.println("Error occurred when creating an account...\n");
             }
         }
@@ -69,6 +70,7 @@ public class Task1 {
         String current_line;
         int line_no;
         char salt;
+        BufferedReader reader;
 
         //get username
         String username = getUsername();
@@ -77,20 +79,15 @@ public class Task1 {
         String password = getPassword(min_pass, max_pass);
 
         //hash password
-        byte[] hashed_password_bytes = new byte[0];
-        try {
-            hashed_password_bytes = getHash(password);
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
+        byte[] hashed_password_bytes = getHash(password);
         String hashed_password = bytesToString(hashed_password_bytes);
 
-        //open salted file
-        //find salt by username, salt and hash password, compare with salt file
+        //open salted file and look for matching usernames
         openInFile("salted.txt");
         System.out.println("Checking username and password against the salted file...");
-        BufferedReader reader = new BufferedReader(in_file);
+        reader = new BufferedReader(in_file);
         line_no = 0;
+
         while ((current_line = reader.readLine()) != null) {
             line_no++;
             String[] split_string = current_line.split(" ");
@@ -109,11 +106,12 @@ public class Task1 {
         reader.close();
         closeInFile("salted.txt");
 
-        //compare with plain text, print result
+        //open plain text, compare with plain text, print result
         openInFile("plaintext.txt");
         System.out.println("Checking username and password against the plaintext file...");
         reader = new BufferedReader(in_file);
         line_no = 0;
+
         while ((current_line = reader.readLine()) != null) {
             line_no++;
             String[] split_string = current_line.split(" ");
@@ -125,6 +123,7 @@ public class Task1 {
                 else System.out.println("Passwords did not match!");
             }
         }
+        reader.close();
         closeInFile("plaintext.txt");
 
         //compare with hash, print result
@@ -143,6 +142,7 @@ public class Task1 {
                 else System.out.println("Passwords did not match!");
             }
         }
+        reader.close();
         closeInFile("hashed.txt");
     }
 
