@@ -24,11 +24,7 @@ public class Task1 {
         boolean valid_input = false;
         String temp;
 
-        System.out.println("""
-                Would you like to authenticate or create account?
-                1) Authenticate
-                2) Create Account
-                """);
+        System.out.println("Would you like to authenticate or create account?\n1) Authenticate\n2) Create Account");
 
         //get the valid option from the user
         while (!valid_input){
