@@ -243,7 +243,6 @@ public class Task1 {
     public static void openOutFile(String fileName){
         try
         {
-            out_file = null;
             out_file = new FileWriter(fileName, true);
         }
         catch (IOException e) {
