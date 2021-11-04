@@ -1,4 +1,9 @@
 import java.util.Scanner;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.nio.charset.StandardCharsets;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Task3 {
 
