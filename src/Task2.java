@@ -86,7 +86,7 @@ public class Task2 {
             System.out.println("Number given was not integer, try again\n");
             max_pass = get_max_pass();
         }
-        if (max_pass <= min_pass_len) {
+        if (max_pass < min_pass_len) {
             System.out.println("Max password length must be more than minimum, try again\n");
             max_pass = get_max_pass();
         }

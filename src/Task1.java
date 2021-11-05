@@ -37,9 +37,7 @@ public class Task1 {
                 op = 2;
                 valid_input = true;
             }
-            else {
-                System.out.println("'" + temp + "' is not a valid option try again\n");
-            }
+            else System.out.println("'" + temp + "' is not a valid option try again\n");
         }
 
         if (op == 1){
@@ -64,9 +62,9 @@ public class Task1 {
     private static void authenticate() throws IOException, NoSuchAlgorithmException {
 
         String current_line;
+        BufferedReader reader;
         int line_no;
         char salt;
-        BufferedReader reader;
 
         //get username
         String username = getUsername();
@@ -203,7 +201,7 @@ public class Task1 {
             System.out.println("Enter a username of only alphabetic characters, of length 10 or less\n");
             username = text_scanner.nextLine();
             if (username.length() > 10) System.out.println("Username must be 10 or less characters, [a-z A-Z]\n");
-            else if (!username.matches("[a-zA-Z]+")) System.out.println("Username must be 10 or less characters, [a-z A-Z] and cannot be empty\n");
+            else if (!username.matches("[a-zA-Z]+")) System.out.println("Username must be 10 or less characters, [a-z A-Z] and cannot be empty/contain whitespace\n");
             else if (username.length() == 0) {
                 if (max_pass == 0) {
                     System.out.println("username must contain something, try again");
@@ -216,7 +214,7 @@ public class Task1 {
 
     public static String getPassword(int min, int max){
         String pass;
-        System.out.println("Enter a password between " + min + " and " + max + " characters long\n");
+        System.out.println("Enter a password between " + min + " and " + max + " characters long\nNOTE: This can be reconfigured by changing the global min and max values in the code!\n");
         pass = text_scanner.nextLine();
         if (pass.length() > max || pass.length() < min){
             System.out.println("Password too short or too long try again. Password must be >= 3 and <= 8> \n");
