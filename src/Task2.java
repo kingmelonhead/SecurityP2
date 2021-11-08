@@ -76,6 +76,7 @@ public class Task2 {
 
 
     private static int get_max_pass(){
+        //gets maximum password length
         String temp;
         System.out.println("What is the max length of the passwords?\n");
         temp = text_scanner.nextLine();
@@ -95,6 +96,7 @@ public class Task2 {
 
 
     private static int get_min_pass(){
+        //gets minimul massword length
         String temp;
         System.out.println("What is the min length of the passwords?\n");
         temp = text_scanner.nextLine();
@@ -147,6 +149,7 @@ public class Task2 {
 
 
     public static String genUsername(){
+        //generates random usernames
         StringBuilder usr = new StringBuilder("usr");
         String alpha = "abcdefghijklmnopqrstuvwxyz";
         int usrLen = ThreadLocalRandom.current().nextInt(1, 7 + 1);
@@ -158,6 +161,7 @@ public class Task2 {
     }
 
     public static String genPassword(){
+        //generates random passwords
         StringBuilder pass = new StringBuilder();
         String nums = "0123456789";
         int passLen = ThreadLocalRandom.current().nextInt(min_pass_len, max_pass_len + 1);
@@ -169,6 +173,7 @@ public class Task2 {
     }
 
     public static void getNoUsers(){
+        //gets the number of accounts to make
         String temp;
         System.out.println("How many accounts would you like to generate?\n");
         temp = text_scanner.nextLine();

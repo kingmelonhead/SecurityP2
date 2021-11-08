@@ -40,6 +40,7 @@ public class Task1 {
             else System.out.println("'" + temp + "' is not a valid option try again\n");
         }
 
+        //user wants to see if login is valid
         if (op == 1){
             try {
                 authenticate();
@@ -48,7 +49,7 @@ public class Task1 {
                 System.out.println("Error occurred when authenticating an account...\n");
             }
         }
-        else{
+        else{ // user wants to make an account
             try {
                 create();
             }
@@ -82,6 +83,8 @@ public class Task1 {
         reader = new BufferedReader(in_file);
         line_no = 0;
 
+        //reads file line by line, splits on white space, then checks provided login creds
+        //this is for the salted file
         while ((current_line = reader.readLine()) != null) {
             line_no++;
             String[] split_string = current_line.split(" ");
@@ -106,6 +109,8 @@ public class Task1 {
         reader = new BufferedReader(in_file);
         line_no = 0;
 
+        //reads file line by line, splits on white space, then checks provided login creds
+        //this is for the plaintext file
         while ((current_line = reader.readLine()) != null) {
             line_no++;
             String[] split_string = current_line.split(" ");
@@ -120,7 +125,8 @@ public class Task1 {
         reader.close();
         closeInFile("plaintext.txt");
 
-        //compare with hash, print result
+        //reads file line by line, splits on white space, then checks provided login creds
+        //this is for the hashed file
         openInFile("hashed.txt");
         System.out.println("Checking username and password against the hashed file...");
         reader = new BufferedReader(in_file);
@@ -195,6 +201,7 @@ public class Task1 {
     }
 
     public static String getUsername(){
+        //gets a valid username from the user
         boolean valid_input = false;
         String username = "";
         while (!valid_input){
@@ -213,6 +220,7 @@ public class Task1 {
     }
 
     public static String getPassword(int min, int max){
+        //gets a valid password from the user
         String pass;
         System.out.println("Enter a password between " + min + " and " + max + " characters long\nNOTE: This can be reconfigured by changing the global min and max values in the code!\n");
         pass = text_scanner.nextLine();
@@ -228,6 +236,7 @@ public class Task1 {
     }
 
     public static void openInFile(String fileName){
+        //tries to open a file of input
         try {
             in_file = null;
             in_file = new FileReader(fileName);
@@ -240,6 +249,7 @@ public class Task1 {
     }
 
     public static void openOutFile(String fileName){
+        ///tries to open a file for output
         try
         {
             out_file = new FileWriter(fileName, true);

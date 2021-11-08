@@ -10,6 +10,7 @@ import java.nio.charset.StandardCharsets;
 public class Task3 {
 
     static Scanner text_scanner;
+    static FileWriter logfile;
     static String[] split_string;
     static String username, pass_from_file, hashedCrack;
     static char[] working_string;
@@ -27,6 +28,8 @@ public class Task3 {
 
         text_scanner = new Scanner(System.in);
 
+        logfile = new FileWriter("log.txt");
+
         max_pass = get_max_pass();
         int op = getOpt();
 
@@ -40,6 +43,8 @@ public class Task3 {
             readSalt();
             crack_salt();
         }
+
+        logfile.close();
     }
     private static int get_max_pass(){
         String temp;
@@ -90,6 +95,7 @@ public class Task3 {
     }
 
     private static void bruteHash(int len, int level) throws NoSuchAlgorithmException {
+        //recursively goes through creating every possible password string and checks it against the file
         if (len == level) {
             for (int i = 0; i < 10; i++) {
                 working_string[level - 1] = intToChar(i);
@@ -111,9 +117,11 @@ public class Task3 {
     }
 
     private static void bruteSalt(int len, int level) throws NoSuchAlgorithmException {
+        //recursively goes through creating every possible password string and checks it against the file
         if (len == level) {
             for (int i = 0; i < 10; i++) {
                 working_string[level - 1] = intToChar(i);
+
                 if (searchSalt()) {
                     System.out.println("A password has been cracked!");
                     beenCracked = true;
@@ -210,6 +218,7 @@ public class Task3 {
     }
 
     public static void readHash() throws IOException {
+        //reads hashed file to vector
         BufferedReader reader;
         FileReader in_file;
         String temp;
@@ -228,6 +237,7 @@ public class Task3 {
     }
 
     public static void readSalt() throws IOException {
+        //reads salt file to vector
         BufferedReader reader;
         FileReader in_file;
         String temp;
